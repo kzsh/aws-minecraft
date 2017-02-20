@@ -28,7 +28,7 @@ resource "aws_route_table" "route_table" {
 
 # Grant the VPC internet access on its main route table
 resource "aws_route" "internet_access" {
-  route_table_id         = "${route_table}"
+  route_table_id         = "$${route_table}"
   destination_cidr_block = "0.0.0.0/0"
   gateway_id             = "${aws_internet_gateway.default.id}"
 }
