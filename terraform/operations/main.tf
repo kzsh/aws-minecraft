@@ -137,4 +137,8 @@ resource "aws_instance" "web" {
   provisioner "local-exec" {
     command = "echo execute ansible here with arguments"
   }
+
+  tags {
+    Name = "mcserver"
+  }
 }
