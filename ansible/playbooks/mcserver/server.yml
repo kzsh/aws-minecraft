@@ -1,0 +1,16 @@
+---
+- hosts: tag_Name_mcserver
+  remote_user: ec2-user
+  tasks:
+    - name: download minecraft
+      get_url:
+        url: https://s3.amazonaws.com/Minecraft.Download/versions/1.11.2/minecraft_server.1.11.2.jar
+        dest: ~/minecraft_server.jar
+        mode: 0644
+    - name: set up eula
+      copy:
+        src: ../../assets/eula.txt
+        dest: ~/eula.txt
+    - name: run server
+      become: true
+      command: java -Xmx1024M -Xms1024M -jar minecraft_server.jar nogui
