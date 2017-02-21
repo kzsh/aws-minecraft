@@ -90,7 +90,7 @@ function cd_to_ansible() {
   goToPath "$ROOT_DIR/ansible"
 }
 
-main() {
+function perform_operation() {
   OPERATION="$1"
   HOST="$2"
 
@@ -140,6 +140,10 @@ main() {
       usage
     ;;
   esac
+}
+
+main() {
+  perform_operation "$@"
 }
 
 main "$@"
