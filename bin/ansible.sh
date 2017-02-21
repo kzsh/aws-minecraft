@@ -1,8 +1,10 @@
 #!/bin/bash
-ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 #IS_DEBUG=1
 
 . "$BASH_SCRIPTS_DIR/util.sh"
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+ROOT_DIR="$SCRIPT_DIR/.."
+ANSIBLE_DIR="$ROOT_DIR/ansible"
 
 function ansible_ping() {
   _send_ansible_command "tag_Name_mcserver" "-m ping"
@@ -17,20 +19,18 @@ function ansible_playbook() {
 }
 
 function _send_ansible_command() {
-  cd_to_ansible
   if [ "$IS_DEBUG" ]; then
-    AWS_PROFILE=minecraft EC2_INI_PATH=./config/ec2.ini ansible -u ec2-user -vvv "$1" -i ./vendor/ec2.py "${@:2}"
+    AWS_PROFILE=minecraft EC2_INI_PATH="$ANSIBLE_DIR"/config/ec2.ini ansible -u ec2-user -vvv "$1" -i "$ANSIBLE_DIR"/vendor/ec2.py "${@:2}"
    else
-    AWS_PROFILE=minecraft EC2_INI_PATH=./config/ec2.ini ansible -u ec2-user "$1" -i ./vendor/ec2.py "${@:2}"
+    AWS_PROFILE=minecraft EC2_INI_PATH="$ANSIBLE_DIR"/config/ec2.ini ansible -u ec2-user "$1" -i "$ANSIBLE_DIR"/vendor/ec2.py "${@:2}"
   fi
 }
 
 function _execute_ansible_playbook() {
-  cd_to_ansible
   if [ "$IS_DEBUG" ]; then
-    AWS_PROFILE=minecraft EC2_INI_PATH=./config/ec2.ini ansible-playbook "$1" -i ./vendor/ec2.py "${@:2}"
+    AWS_PROFILE=minecraft EC2_INI_PATH="$ANSIBLE_DIR"/config/ec2.ini ansible-playbook "$1" -i "$ANSIBLE_DIR"/vendor/ec2.py "${@:2}"
    else
-    AWS_PROFILE=minecraft EC2_INI_PATH=./config/ec2.ini ansible-playbook "$1" -i ./vendor/ec2.py "${@:2}"
+    AWS_PROFILE=minecraft EC2_INI_PATH=."$ANSIBLE_DIR"/config/ec2.ini ansible-playbook "$1" -i "$ANSIBLE_DIR"/vendor/ec2.py "${@:2}"
   fi
 }
 
@@ -43,9 +43,6 @@ function usage() {
     "
 }
 
-function cd_to_ansible() {
-  go_to_path "$ROOT_DIR/ansible"
-}
 
 function perform_operation() {
   OPERATION="$1"
