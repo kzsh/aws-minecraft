@@ -122,7 +122,6 @@ function perform_operation() {
     ;;
     'run')
       begin_section "Running command"
-          echo "$@"
          ansible_run "${@:2}"
       end_section
     ;;
