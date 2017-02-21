@@ -1,8 +1,4 @@
 #!/bin/bash
-SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-#IS_DEBUG=1
-
-ROOT_DIR="$SCRIPT_DIR/.."
 
 . "$BASH_SCRIPTS_DIR/util.sh"
 
@@ -11,11 +7,34 @@ function usage() {
   "
 }
 
-function perform_operation() {
+function create() {
+  ./terraform.sh apply && \
+  provision
+}
+
+function destroy() {
+  ./ansible.sh playbook ./playbooks/mcserver/recover_world.yml && \
+  ./terraform.sh destroy
+}
+
+function provision() {
+  ./ansible.sh playbook ./playbooks/mcserver/server.yml
+}
+
+function select_operation() {
   OPERATION="$1"
   HOST="$2"
 
   case "$OPERATION" in
+    'create')
+      create
+    ;;
+    'destroy')
+      destroy
+    ;;
+    'provision')
+      provision
+    ;;
     *)
       usage
     ;;
@@ -23,7 +42,7 @@ function perform_operation() {
 }
 
 main() {
-  perform_operation "$@"
+  select_operation "$@"
 }
 
 main "$@"
