@@ -54,7 +54,7 @@ function perform_operation() {
       begin_section "Gathering host info"
       ansible_host_info "$HOST" end_section
     ;;
-    'list-inventory')
+    'list')
       begin_section "Provisioning EC2 instances"
         ansible_list_inventory
       end_section
