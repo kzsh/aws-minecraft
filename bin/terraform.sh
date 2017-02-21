@@ -27,7 +27,7 @@ function usage() {
 }
 
 function cd_to_terraform() {
-  goToPath "$ROOT_DIR/terraform"
+  go_to_path "$ROOT_DIR/terraform"
 }
 
 function perform_operation() {
