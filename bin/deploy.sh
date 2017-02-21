@@ -1,6 +1,10 @@
 #!/bin/bash
 
 . "$BASH_SCRIPTS_DIR/util.sh"
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+ROOT_DIR="$SCRIPT_DIR/.."
+BIN_DIR="$ROOT_DIR/bin"
+ANSIBLE_DIR="$ROOT_DIR/ansible"
 
 function usage() {
   echo_info "Deploy tool
@@ -8,22 +12,25 @@ function usage() {
 }
 
 function create() {
-  ./terraform.sh apply && \
+  "$BIN_DIR"/terraform.sh apply && \
   provision
 }
 
 function destroy() {
-  ./ansible.sh playbook ./playbooks/mcserver/recover_world.yml && \
-  ./terraform.sh destroy
+  recover_world && \
+  "$BIN_DIR"/terraform.sh destroy
+}
+
+function recover_world() {
+  "$BIN_DIR"/ansible.sh playbook "$ANSIBLE_DIR"/playbooks/mcserver/recover_world.yml
 }
 
 function provision() {
-  ./ansible.sh playbook ./playbooks/mcserver/server.yml
+  "$BIN_DIR"/ansible.sh playbook "$ANSIBLE_DIR"/playbooks/mcserver/server.yml
 }
 
 function select_operation() {
   OPERATION="$1"
-  HOST="$2"
 
   case "$OPERATION" in
     'create')
@@ -34,6 +41,9 @@ function select_operation() {
     ;;
     'provision')
       provision
+    ;;
+    'recover-world')
+      recover_world
     ;;
     *)
       usage

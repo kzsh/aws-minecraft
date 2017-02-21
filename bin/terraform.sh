@@ -1,21 +1,21 @@
 #!/bin/bash
-ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 #IS_DEBUG=1
 
 . "$BASH_SCRIPTS_DIR/util.sh"
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+ROOT_DIR="$SCRIPT_DIR/.."
+TERRAFORM_DIR="$ROOT_DIR/terraform"
 
 function terraform_apply() {
   _send_terraform_command "apply"
 }
 
 function terraform_destroy() {
-  cd_to_terraform
   _send_terraform_command "destroy"
 }
 
 function _send_terraform_command() {
-  cd_to_terraform
-  terraform "$1" -var-file=./config/secrets.tfvars ./operations
+  terraform "$1" -var-file="$TERRAFORM_DIR"/config/secrets.tfvars "$TERRAFORM_DIR"/operations
 }
 
 
@@ -26,13 +26,8 @@ function usage() {
     'destroy'"
 }
 
-function cd_to_terraform() {
-  go_to_path "$ROOT_DIR/terraform"
-}
-
 function perform_operation() {
   OPERATION="$1"
-  HOST="$2"
 
   case "$OPERATION" in
     'apply')
