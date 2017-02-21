@@ -30,7 +30,7 @@ function _execute_ansible_playbook() {
   if [ "$IS_DEBUG" ]; then
     AWS_PROFILE=minecraft EC2_INI_PATH="$ANSIBLE_DIR"/config/ec2.ini ansible-playbook "$1" -i "$ANSIBLE_DIR"/vendor/ec2.py "${@:2}"
    else
-    AWS_PROFILE=minecraft EC2_INI_PATH=."$ANSIBLE_DIR"/config/ec2.ini ansible-playbook "$1" -i "$ANSIBLE_DIR"/vendor/ec2.py "${@:2}"
+    AWS_PROFILE=minecraft EC2_INI_PATH="$ANSIBLE_DIR"/config/ec2.ini ansible-playbook "$1" -i "$ANSIBLE_DIR"/vendor/ec2.py "${@:2}"
   fi
 }
 
