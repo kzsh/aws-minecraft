@@ -34,6 +34,10 @@ function ansible_run() {
   _send_ansible_command "tag_Name_mcserver" "$@"
 }
 
+function ansible_playbook() {
+  _execute_ansible_playbook "$@"
+}
+
 function _send_ansible_dynamic_inventory_command() {
   cd_to_ansible
   AWS_PROFILE=minecraft EC2_INI_PATH=./config/ec2.ini ./vendor/ec2.py "$@"
@@ -48,6 +52,14 @@ function _send_ansible_command() {
   fi
 }
 
+function _execute_ansible_playbook() {
+  cd_to_ansible
+  if [ "$IS_DEBUG" ]; then
+    AWS_PROFILE=minecraft EC2_INI_PATH=./config/ec2.ini ansible-playbook "$1" -i ./vendor/ec2.py "${@:2}"
+   else
+    AWS_PROFILE=minecraft EC2_INI_PATH=./config/ec2.ini ansible-playbook "$1" -i ./vendor/ec2.py "${@:2}"
+  fi
+}
 
 function _send_terraform_command() {
   cd_to_terraform
@@ -66,6 +78,7 @@ function usage() {
     'refresh-cache'
     Ansible
     'run'
+    'playbook'
     'ping-all'"
 }
 
@@ -111,6 +124,11 @@ main() {
       begin_section "Running command"
           echo "$@"
          ansible_run "${@:2}"
+      end_section
+    ;;
+    'playbook')
+      begin_section "Executing playbook"
+         ansible_playbook "${@:2}"
       end_section
     ;;
     'refresh-cache')
