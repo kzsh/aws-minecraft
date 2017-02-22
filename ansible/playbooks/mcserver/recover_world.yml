@@ -1,0 +1,19 @@
+---
+- hosts: tag_Name_mcserver
+  remote_user: ec2-user
+  tasks:
+    - name: stop server
+      service:
+        name: minecraft
+        state: stopped
+    - name: archive world
+      command: tar czf ~/world.tar.gz ~/minecraft_server/world
+    - stat:
+        path: ~/world.tar.gz
+      register: has_world
+    - name: download world to local
+      when: has_world.stat.exists
+      fetch:
+        dest: ../../../artifacts/
+        flat: yes
+        src: ~/world.tar.gz
