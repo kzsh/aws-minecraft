@@ -2,15 +2,46 @@
 - hosts: tag_Name_mcserver
   remote_user: ec2-user
   tasks:
+    - name: create server directory
+      file: path=~/minecraft_server state=directory
+    - name: create init script directory
+      file: path=~/minecraft_init.d state=directory
     - name: download minecraft
       get_url:
         url: https://s3.amazonaws.com/Minecraft.Download/versions/1.11.2/minecraft_server.1.11.2.jar
-        dest: ~/minecraft_server.jar
+        dest: ~/minecraft_server/minecraft_server.jar
         mode: 0644
     - name: set up eula
       copy:
         src: ../../assets/eula.txt
-        dest: ~/eula.txt
-    - name: run server
+        dest: ~/minecraft_server/eula.txt
+    - name: world exists
+      stat:
+        path: ../../../assets/world.tar.gz
+      register: has_local_world
+    - name: upload world
+      when: has_local_world.stat.exists
+      unarchive:
+        src: ../../../assets/world.tar.gz
+        dest: ~/minecraft_server/world
+    - name: set up init.d script
+      copy:
+        src: ../../assets/init.d/
+        dest: ~/minecraft_init.d
+        mode: 0644
+    - name: grant execute on init script
+      file:
+        path: /home/ec2-user/minecraft_init.d/minecraft
+        mode: 0755
+    - name: link init script
       become: true
-      command: java -Xmx1024M -Xms1024M -jar minecraft_server.jar nogui
+      file:
+        src: /home/ec2-user/minecraft_init.d/minecraft
+        dest: /etc/init.d/minecraft
+        state: link
+        owner: ec2-user
+        group: ec2-user
+    - name: run server
+      service:
+        name: minecraft
+        state: started
