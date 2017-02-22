@@ -17,12 +17,12 @@
         dest: ~/minecraft_server/eula.txt
     - name: world exists
       stat:
-        path: ../../../assets/world.tar.gz
+        path: ../../../artifacts/world.tar.gz
       register: has_local_world
     - name: upload world
       when: has_local_world.stat.exists
       unarchive:
-        src: ../../../assets/world.tar.gz
+        src: ../../../artifacts/world.tar.gz
         dest: ~/minecraft_server/world
     - name: set up init.d script
       copy:
@@ -45,3 +45,4 @@
       service:
         name: minecraft
         state: started
+
