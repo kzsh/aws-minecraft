@@ -12,13 +12,11 @@ function usage() {
 }
 
 function create() {
-  "$BIN_DIR"/terraform.sh apply && \
-  provision
+  "$BIN_DIR"/terraform.sh apply
 }
 
 function destroy() {
-  recover_world && \
-  "$BIN_DIR"/terraform.sh destroy
+  recover_world && "$BIN_DIR"/terraform.sh destroy
 }
 
 function recover_world() {
