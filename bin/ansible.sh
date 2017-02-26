@@ -20,16 +20,16 @@ function ansible_playbook() {
 
 function _send_ansible_command() {
   if [ "$IS_DEBUG" ]; then
-    AWS_PROFILE=minecraft EC2_INI_PATH="$ANSIBLE_DIR"/config/ec2.ini ansible -u ec2-user -vvv "$1" -i "$ANSIBLE_DIR"/vendor/ec2.py "${@:2}"
-   else
+    AWS_PROFILE=minecraft EC2_INI_PATH="$ANSIBLE_DIR"/config/ec2.ini ansible -u ec2-user "$1" -vvv -i "$ANSIBLE_DIR"/vendor/ec2.py "${@:2}"
+  else
     AWS_PROFILE=minecraft EC2_INI_PATH="$ANSIBLE_DIR"/config/ec2.ini ansible -u ec2-user "$1" -i "$ANSIBLE_DIR"/vendor/ec2.py "${@:2}"
   fi
 }
 
 function _execute_ansible_playbook() {
   if [ "$IS_DEBUG" ]; then
-    AWS_PROFILE=minecraft EC2_INI_PATH="$ANSIBLE_DIR"/config/ec2.ini ansible-playbook "$1" -i "$ANSIBLE_DIR"/vendor/ec2.py "${@:2}"
-   else
+    AWS_PROFILE=minecraft EC2_INI_PATH="$ANSIBLE_DIR"/config/ec2.ini ansible-playbook "$1" -vvv -i "$ANSIBLE_DIR"/vendor/ec2.py "${@:2}"
+  else
     AWS_PROFILE=minecraft EC2_INI_PATH="$ANSIBLE_DIR"/config/ec2.ini ansible-playbook "$1" -i "$ANSIBLE_DIR"/vendor/ec2.py "${@:2}"
   fi
 }
