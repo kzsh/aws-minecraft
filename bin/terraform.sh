@@ -15,7 +15,7 @@ function terraform_destroy() {
 }
 
 function _send_terraform_command() {
-  terraform "$1" -var-file="$TERRAFORM_DIR"/config/secrets.tfvars "$TERRAFORM_DIR"/operations
+  terraform "$1" -var-file="$TERRAFORM_DIR"/config/secrets.tfvars -state-out="$ROOT_DIR"/output/terraform/minecraft.tfstate "$TERRAFORM_DIR"/operations
 }
 
 
