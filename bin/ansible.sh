@@ -7,7 +7,7 @@ ROOT_DIR="$SCRIPT_DIR/.."
 ANSIBLE_DIR="$ROOT_DIR/ansible"
 
 function ansible_ping() {
-  _send_ansible_command "tag_Name_mcserver" "-m ping"
+  _send_ansible_command "tag_Name_mcserver" "-m ping" "$@"
 }
 
 function ansible_run() {
