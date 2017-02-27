@@ -16,8 +16,7 @@
         src: ../../assets/eula.txt
         dest: ~/minecraft_server/eula.txt
     - name: world exists
-      stat:
-        path: ../../../artifacts/world.tar.gz
+      local_action: stat path=../../../artifacts/world.tar.gz
       register: has_local_world
     - name: upload world
       when: has_local_world.stat.exists
