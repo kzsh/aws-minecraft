@@ -92,11 +92,8 @@ resource "aws_instance" "web" {
   # backend instances.
   subnet_id = "${aws_subnet.minecraft.id}"
 
-  # We run a remote provisioner on the instance after creating it.
-  # In this case, we just install nginx and start it. By default,
-  # this should be on port 80
   provisioner "local-exec" {
-    command = "echo execute ansible here with arguments"
+    command = "./bin/deploy.sh provision"
   }
 
   tags {
