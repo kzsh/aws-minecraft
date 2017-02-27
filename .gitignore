@@ -5,3 +5,6 @@ terraform.tfstate*
 
 # Don't commit state
 output
+
+# Don't commit artifacts
+artifacts
