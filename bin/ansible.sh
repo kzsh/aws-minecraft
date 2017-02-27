@@ -37,17 +37,17 @@ function perform_operation() {
   case "$OPERATION" in
     'ping-all')
       begin_section "Gathering host info"
-         ansible_ping
+        ansible_ping "${@:2}"
       end_section
     ;;
     'playbook')
       begin_section "Executing playbook"
-         ansible_playbook "${@:2}"
+        ansible_playbook "${@:2}"
       end_section
     ;;
     'run')
       begin_section "Running command"
-         ansible_run "${@:2}"
+        ansible_run "${@:2}"
       end_section
     ;;
     *)
