@@ -2,3 +2,6 @@ secrets.tfvars
 terraform.tfstate*
 
 *.retry
+
+# Don't commit state
+output
