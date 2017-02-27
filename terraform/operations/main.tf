@@ -93,7 +93,7 @@ resource "aws_instance" "web" {
   subnet_id = "${aws_subnet.minecraft.id}"
 
   provisioner "local-exec" {
-    command = "./bin/deploy.sh provision"
+    command = "./bin/infrastructure.sh provision"
   }
 
   tags {
