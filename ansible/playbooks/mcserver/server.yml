@@ -22,7 +22,6 @@
       when: has_local_world.stat.exists
       unarchive:
         src: ../../../artifacts/world.tar.gz
-        dest: ~/minecraft_server/world
     - name: set up init.d script
       copy:
         src: ../../assets/init.d/
