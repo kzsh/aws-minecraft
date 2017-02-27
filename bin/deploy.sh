@@ -8,6 +8,10 @@ ANSIBLE_DIR="$ROOT_DIR/ansible"
 
 function usage() {
   echo_info "Deploy tool
+    'create': create the necessary EC2 infrastructure
+    'destroy': destroy EC2 infrastructure
+    'provision': Download and set up minecraft.  Uploads a local world if one exists.
+    'recover-world': Archive and download the world on the server to the local artifacts dir.
   "
 }
 
