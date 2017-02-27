@@ -14,11 +14,15 @@ function ansible_run() {
 }
 
 function _send_ansible_command() {
-  AWS_PROFILE=minecraft ansible -u ec2-user -i "$ANSIBLE_DIR"/vendor/ec2.py "$@"
+  AWS_PROFILE=minecraft ansible -u ec2-user --extra-vars="$(inject_config)"  -i "$ANSIBLE_DIR"/vendor/ec2.py "$@"
 }
 
 function ansible_playbook() {
-  AWS_PROFILE=minecraft EC2_INI_PATH="$ANSIBLE_DIR"/config/ec2.ini ansible-playbook -i "$ANSIBLE_DIR"/vendor/ec2.py "$@"
+  AWS_PROFILE=minecraft EC2_INI_PATH="$ANSIBLE_DIR"/config/ec2.ini ansible-playbook --extra-vars="$(inject_config)" -i "$ANSIBLE_DIR"/vendor/ec2.py "$@"
+}
+
+function inject_config() {
+  echo "$(cat "$ROOT_DIR/config.yml" | tr "\n" " ")"
 }
 
 function usage() {
