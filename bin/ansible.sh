@@ -13,15 +13,11 @@ function ansible_run() {
   _send_ansible_command "tag_Name_mcserver" "$@"
 }
 
-function ansible_playbook() {
-  _execute_ansible_playbook "$@"
-}
-
 function _send_ansible_command() {
   AWS_PROFILE=minecraft ansible -u ec2-user -i "$ANSIBLE_DIR"/vendor/ec2.py "$@"
 }
 
-function _execute_ansible_playbook() {
+function ansible_playbook() {
   AWS_PROFILE=minecraft EC2_INI_PATH="$ANSIBLE_DIR"/config/ec2.ini ansible-playbook -i "$ANSIBLE_DIR"/vendor/ec2.py "$@"
 }
 
