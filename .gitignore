@@ -8,3 +8,6 @@ output
 
 # Don't commit artifacts
 artifacts
+
+# Ignore local config
+config.yml
