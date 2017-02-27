@@ -5,6 +5,7 @@
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 ROOT_DIR="$SCRIPT_DIR/.."
 TERRAFORM_DIR="$ROOT_DIR/terraform"
+TERRAFORM_STATE_DIR="$ROOT_DIR/output/terraform/minecraft.tfstate"
 
 function terraform_apply() {
   _send_terraform_command "apply"
@@ -15,7 +16,7 @@ function terraform_destroy() {
 }
 
 function _send_terraform_command() {
-  terraform "$1" -var-file="$TERRAFORM_DIR"/config/secrets.tfvars -state-out="$ROOT_DIR"/output/terraform/minecraft.tfstate "$TERRAFORM_DIR"/operations
+  terraform "$1" -var-file="$TERRAFORM_DIR"/config/secrets.tfvars -state="$TERRAFORM_STATE_DIR" -state-out="$TERRAFORM_STATE_DIR" "$TERRAFORM_DIR"/operations
 }
 
 
