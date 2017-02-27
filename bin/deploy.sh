@@ -16,19 +16,19 @@ function usage() {
 }
 
 function create() {
-  "$BIN_DIR"/terraform.sh apply
+  "$BIN_DIR"/terraform.sh apply "$@"
 }
 
 function destroy() {
-  recover_world && "$BIN_DIR"/terraform.sh destroy
+  recover_world && "$BIN_DIR"/terraform.sh destroy "$@"
 }
 
 function recover_world() {
-  "$BIN_DIR"/ansible.sh playbook "$ANSIBLE_DIR"/playbooks/mcserver/recover_world.yml
+  "$BIN_DIR"/ansible.sh playbook "$ANSIBLE_DIR"/playbooks/mcserver/recover_world.yml "$@"
 }
 
 function provision() {
-  "$BIN_DIR"/ansible.sh playbook "$ANSIBLE_DIR"/playbooks/mcserver/server.yml
+  "$BIN_DIR"/ansible.sh playbook "$ANSIBLE_DIR"/playbooks/mcserver/server.yml "$@"
 }
 
 function select_operation() {
@@ -36,16 +36,16 @@ function select_operation() {
 
   case "$OPERATION" in
     'create')
-      create
+      create "${@:2}"
     ;;
     'destroy')
-      destroy
+      destroy "${@:2}"
     ;;
     'provision')
-      provision
+      provision "${@:2}"
     ;;
     'recover-world')
-      recover_world
+      recover_world "${@:2}"
     ;;
     *)
       usage
