@@ -11,8 +11,8 @@ SCRIPTS_DIR="$ROOT_DIR/scripts"
 
 function usage() {
   echo_info "Deploy tool
-    'create': create the necessary EC2 infrastructure
-    'destroy': destroy EC2 infrastructure
+    'create': create the necessary EC2 infrastructure.  Runs provision after.
+    'destroy': destroy EC2 infrastructure. Runs recover-world first.
     'provision': Download and set up minecraft.  Uploads a local world if one exists.
     'recover-world': Archive and download the world on the server to the local artifacts dir.
   "
