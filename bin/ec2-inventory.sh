@@ -1,10 +1,13 @@
 #!/bin/bash
 #IS_DEBUG=1
 
-. "$BASH_SCRIPTS_DIR/util.sh"
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 ROOT_DIR="$SCRIPT_DIR/.."
 ANSIBLE_DIR="$ROOT_DIR/ansible"
+SCRIPTS_DIR="$ROOT_DIR/scripts"
+
+. "$SCRIPTS_DIR/util.sh"
+
 
 function ansible_list_inventory() {
   _send_ansible_dynamic_inventory_command "--list"

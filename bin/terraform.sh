@@ -1,11 +1,13 @@
 #!/bin/bash
 #IS_DEBUG=1
 
-. "$BASH_SCRIPTS_DIR/util.sh"
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 ROOT_DIR="$SCRIPT_DIR/.."
 TERRAFORM_DIR="$ROOT_DIR/terraform"
 TERRAFORM_STATE_DIR="$ROOT_DIR/output/terraform/minecraft.tfstate"
+SCRIPTS_DIR="$ROOT_DIR/scripts"
+
+. "$SCRIPTS_DIR/util.sh"
 
 function terraform_apply() {
   _send_terraform_command "apply"

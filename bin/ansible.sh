@@ -1,9 +1,11 @@
 #!/bin/bash
 
-. "$BASH_SCRIPTS_DIR/util.sh"
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 ROOT_DIR="$SCRIPT_DIR/.."
 ANSIBLE_DIR="$ROOT_DIR/ansible"
+SCRIPTS_DIR="$ROOT_DIR/scripts"
+
+. "$SCRIPTS_DIR/util.sh"
 
 function ansible_ping() {
   _send_ansible_command "tag_Name_mcserver" "-m ping" "$@"
