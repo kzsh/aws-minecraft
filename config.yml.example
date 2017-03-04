@@ -1,1 +1,3 @@
 ssh_key_path=/path/to/ssh/key
+aws_profile=aws_profile_with_access_to_ec2
+aws_region=aws_region_name
