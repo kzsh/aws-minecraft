@@ -53,3 +53,9 @@ function exit_error() {
     exit 1
   fi
 }
+
+function get_config_value() {
+  local key="$1"
+  local config_file="$2"
+  ack -1o "(?<=^$key=).*" "$config_file"
+}
