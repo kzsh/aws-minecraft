@@ -37,3 +37,6 @@ Destroy all aws infrastructure that was created in `create`. Requires an
 interactive confirmation (for the moment) in order to complete.
 The `destroy` command will run `recover-world` before destroying the
 infrastructure.
+
+# TODO
+Extract aws info from terraform secret vars into config.yml and aws profile
