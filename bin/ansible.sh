@@ -3,8 +3,8 @@
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 ROOT_DIR="$SCRIPT_DIR/.."
 ANSIBLE_DIR="$ROOT_DIR/ansible"
-SCRIPTS_DIR="$ROOT_DIR/scripts"
 CONFIG_FILE="$ROOT_DIR/config.yml"
+SCRIPTS_DIR="$ROOT_DIR/scripts"
 
 . "$SCRIPTS_DIR/util.sh"
 

@@ -3,9 +3,10 @@
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 ROOT_DIR="$SCRIPT_DIR/.."
+CONFIG_FILE="$ROOT_DIR/config.yml"
+SCRIPTS_DIR="$ROOT_DIR/scripts"
 TERRAFORM_DIR="$ROOT_DIR/terraform"
 TERRAFORM_STATE_DIR="$ROOT_DIR/output/terraform/minecraft.tfstate"
-SCRIPTS_DIR="$ROOT_DIR/scripts"
 
 . "$SCRIPTS_DIR/util.sh"
 
