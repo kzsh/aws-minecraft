@@ -4,6 +4,7 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 ROOT_DIR="$SCRIPT_DIR/.."
 ANSIBLE_DIR="$ROOT_DIR/ansible"
 SCRIPTS_DIR="$ROOT_DIR/scripts"
+CONFIG_FILE="$ROOT_DIR/config.yml"
 
 . "$SCRIPTS_DIR/util.sh"
 
@@ -16,15 +17,11 @@ function ansible_run() {
 }
 
 function _send_ansible_command() {
-  AWS_PROFILE=minecraft ansible -u ec2-user --extra-vars="$(inject_config)"  -i "$ANSIBLE_DIR"/vendor/ec2.py "$@"
+  AWS_PROFILE=$(config_value "aws_profile") AWS_REGION=$(config_value "aws_region") ansible -u ec2-user --extra-vars="$(inject_config)"  -i "$ANSIBLE_DIR"/vendor/ec2.py "$@"
 }
 
 function ansible_playbook() {
-  AWS_PROFILE=minecraft EC2_INI_PATH="$ANSIBLE_DIR"/config/ec2.ini ansible-playbook --extra-vars="$(inject_config)" -i "$ANSIBLE_DIR"/vendor/ec2.py "$@"
-}
-
-function inject_config() {
-  echo "$(cat "$ROOT_DIR/config.yml" | tr "\n" " ")"
+  AWS_PROFILE=$(config_value "aws_profile") AWS_REGION=$(config_value "aws_region") EC2_INI_PATH="$ANSIBLE_DIR"/config/ec2.ini ansible-playbook --extra-vars="ssh_key_path=$(config_value "ssh_key_path")" -i "$ANSIBLE_DIR"/vendor/ec2.py "$@"
 }
 
 function usage() {
@@ -35,7 +32,6 @@ function usage() {
     'run'
     "
 }
-
 
 function perform_operation() {
   OPERATION="$1"
@@ -60,6 +56,12 @@ function perform_operation() {
       usage
     ;;
   esac
+}
+
+config_value() {
+  local key="$1"
+  #echo "$(get_config_value "$key" "$CONFIG_FILE")"
+  get_config_value "$key" "$CONFIG_FILE"
 }
 
 main() {
