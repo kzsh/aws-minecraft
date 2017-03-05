@@ -22,6 +22,6 @@ variable "ssh_key_path" {}
 
 variable "aws_amis" {
   default = {
-    us-west-2 = "ami-1e299d7e"
+    us-west-2 = "ami-f173cc91"
   }
 }
