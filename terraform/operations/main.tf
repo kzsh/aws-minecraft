@@ -60,7 +60,6 @@ resource "aws_security_group" "minecraft" {
 }
 
 resource "aws_key_pair" "minecraft" {
-  key_name   = "${var.key_name}"
   public_key = "${file(var.public_key_path)}"
 }
 
