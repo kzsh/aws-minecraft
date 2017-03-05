@@ -39,4 +39,6 @@ The `destroy` command will run `recover-world` before destroying the
 infrastructure.
 
 # TODO
-Extract aws info from terraform secret vars into config.yml and aws profile
+- Strip down the init.d script to do only what we need
+- restructure ansible to castcade more naturally
+- Replace relative paths
