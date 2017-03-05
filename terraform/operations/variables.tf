@@ -18,7 +18,7 @@ variable "vpc_subnet_availability_zone" {
   default = "us-west-2b"
 }
 
-variable "public_key_path" {}
+variable "ssh_key_path" {}
 
 variable "aws_amis" {
   default = {
