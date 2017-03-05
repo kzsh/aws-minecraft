@@ -1,9 +1,6 @@
-variable "aws_access_key_id" {
-  description = "The AWS access key."
-}
-
-variable "aws_secret_access_key" {
-  description = "The AWS secret key."
+variable "aws_profile" {
+  description = "An aws profile"
+  default = "default"
 }
 
 variable "aws_region" {
