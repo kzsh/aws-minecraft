@@ -60,7 +60,7 @@ resource "aws_security_group" "minecraft" {
 }
 
 resource "aws_key_pair" "minecraft" {
-  public_key = "${file(var.ssh_key_path)}"
+  public_key = "${file(format("%s.pub", var.ssh_key_path))}"
 }
 
 resource "aws_instance" "web" {
