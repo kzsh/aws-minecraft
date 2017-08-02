@@ -19,7 +19,7 @@ function terraform_destroy() {
 }
 
 function _send_terraform_command() {
-  AWS_PROFILE=$(config_value "aws_profile") terraform "$1" -var-file="$TERRAFORM_DIR"/config/secrets.tfvars -var "aws_region=$(config_value "aws_region")" -var "ssh_key_path=$(config_value "ssh_key_path")" -var "aws_profile=$(config_value "aws_profile")" -state="$TERRAFORM_STATE_DIR" -state-out="$TERRAFORM_STATE_DIR" "$TERRAFORM_DIR"/operations
+  AWS_PROFILE=$(config_value "aws_profile") terraform "$1" -var "aws_region=$(config_value "aws_region")" -var "ssh_key_path=$(config_value "ssh_key_path")" -var "aws_profile=$(config_value "aws_profile")" -state="$TERRAFORM_STATE_DIR" -state-out="$TERRAFORM_STATE_DIR" "$TERRAFORM_DIR"/operations
 }
 
 
