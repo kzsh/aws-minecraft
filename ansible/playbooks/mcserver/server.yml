@@ -2,13 +2,18 @@
 - hosts: tag_Name_mcserver
   remote_user: ec2-user
   tasks:
+    - name: install java8
+      yum:
+        name: java-1.8.0-openjdk.x86_64
+        state: present
+      become: true
     - name: create server directory
       file: path=~/minecraft_server state=directory
     - name: create init script directory
       file: path=~/minecraft_init.d state=directory
     - name: download minecraft
       get_url:
-        url: https://s3.amazonaws.com/Minecraft.Download/versions/1.11.2/minecraft_server.1.11.2.jar
+        url: https://s3.amazonaws.com/Minecraft.Download/versions/1.12/minecraft_server.1.12.jar
         dest: ~/minecraft_server/minecraft_server.jar
         mode: 0644
     - name: set up eula
